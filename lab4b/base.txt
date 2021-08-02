@@ -1,0 +1,4 @@
+create 'foods', {NAME => 'fact', COMPRESSION => 'GZ', BLOOMFILTER => 'ROW'}
+
+exit
+

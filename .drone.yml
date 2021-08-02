@@ -1,0 +1,15 @@
+pipeline:
+  check_params:
+    image: docker.io/couchdb:1.6.1 
+    commands:
+        - sleep 5 
+        - cat lab6a/lab6a.sh
+        
+  grade_lab6a:
+    image: docker.io/couchdb:1.6.1
+    commands:
+        - bash lab6a/lab6a.sh 
+
+services:
+  couchdb:
+    image: docker.io/couchdb:1.6.1

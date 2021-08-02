@@ -1,0 +1,44 @@
+<% include partials/header %>
+
+<h3>Add Restaurant:</h3>
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li style="color:red"><%= error.msg %></li>
+<% }) %>
+</ul>
+<% } %>
+
+<form method="POST" action="/restaurant/add">
+<label>* Name:</label><br>
+<input type="text" name="name" value="<%= restaurant.name %>"><br>
+
+<label>Food Type:</label><br>
+<input type="text" name="food_type" value="<%= restaurant.food_type %>"><br>
+
+<label>Phone Number:</label><br>
+<input type="text" name="phonenumber" value="<%= restaurant.phonenumber %>"><br>
+
+<label>* Website:</label><br>
+<input type="text" size="50" name="website" value="<%= restaurant.website %>"><br>
+
+<br>
+<input type="submit" value="Submit">
+</form>
+
+
+<ul>
+<% restaurants.forEach(function(restaurant){ %>
+<li>
+    <%= restaurant.value.name %> - (<a target="_blank" href="<%= restaurant.value.website %>"><%= restaurant.value.website %></a>) - 
+    <a href='/restaurant/edit/<%= restaurant.id %>'>Edit</a>&nbsp;
+    <form method="post" action="/restaurant/delete/<%= restaurant.id %>">
+        <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="hidden" name="rev" value="<%= restaurant.value.rev %>" />
+    </form>
+</li>
+<% }); %>
+</ul>
+
+<% include partials/footer %>

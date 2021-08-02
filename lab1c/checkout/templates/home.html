@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CSC561 | Lab1c</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  </head>
+<body>
+
+<h3>All items that user1 has checked out with the corresponding checkout_time</h3>
+
+<table border="1" cellpadding="5px" cellspacing="0">
+  <thead>
+    <th>Inventory Item</th>
+    <th>Checkout Time</th>
+  </thead>
+
+  <tbody>
+    {% for transaction in user.transaction_set.all %} 
+      <tr>
+	    	<td>{{ transaction.inventory.description }}</td> <!--Print inventory item-->
+		    <td>{{ transaction.checkout_time }}</td> <!--Print checkout_time-->
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>All users who checked out items before September 3 2018.  Show user first name, the item description, checkout_time and the status</h3>
+
+<table border="1" cellpadding="5px" cellspacing="0">
+  <thead>
+    <th>User's first name</th>
+    <th>Item Description</th>
+    <th>Checkout time</th>
+    <th>Status</th>
+  </thead>
+
+  <tbody>
+    {% for transaction in transactions %}
+      <tr>
+
+        <td>{{ transaction.user.first_name }}</td> <!--First Name-->
+		    <td>{{ transaction.inventory.description }}</td> <!--Item Description-->
+        <td>{{ transaction.checkout_time }}</td>
+		    <td>{{ transaction.inventory.status.description }}</td> <!--Status-->
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>
+

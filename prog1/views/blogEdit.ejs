@@ -1,0 +1,35 @@
+<% include partials/header %>
+
+<h1>Edit Blog:</h1>
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li style="color:red"><%= error.msg %></li>
+<% }) %>
+</ul>
+<% } %>
+
+<form method="POST" action="/blogs/edit/<%= blogs._id %>">
+    <input type="hidden" name="_method" value="PUT" />
+    <label>Title:</label><br>
+    <input type="text" name="title" value="<%= blogs.title %>"><br>
+    <label>Slug:</label><br>
+    <input type="text" name="slug" value="<%= blogs.slug %>"><br>
+    <label>Author:</label><br>
+    <select name="author">
+        <option value="5bb26043708926e438db6cad">Bruno Skvorc</option>
+        <option value="5bb26043708926e438db6cae">Jack Franklin</option>
+        <option value="5bb26043708926e438db6caf">Daniel Diaz</option>
+    </select>
+    <!-- <input type="text" name="author" value="<%= blogs.author %>">-->
+    <br>
+    <label>Body:</label><br>
+    <input type="text" name="body" value="<%= blogs.body %>"><br>
+    <label>Comment:</label><br>
+    <%= blogs.comment %><br>
+    <label>Category:</label><br>
+    <%= blogs.category %><br>
+    <br>
+    <input type="submit" value="Edit">
+    </form>
+<% include partials/footer %>

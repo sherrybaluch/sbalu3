@@ -1,0 +1,83 @@
+<% include partials/header %>
+
+<h1>Add Blog:</h1>
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li style="color:red"><%= error.msg %></li>
+<% }) %>
+</ul>
+<% } %>
+
+<form method="POST" action="/blogs/add">
+<label>Title:</label><br>
+<input type="text" name="title"><br>
+<label>Slug:</label><br>
+<input type="text" name="slug"><br>
+<br>
+<label>Author:</label><br>
+<select name="author">
+    <% var authors=[
+        {
+            _id:"5bb26043708926e438db6cad",
+            name:"Bruno Skvorc"
+        },
+        {
+            _id:"5bb26043708926e438db6cae",
+            name:"Jack Franklin"
+        },
+        {
+            _id:"5bb26043708926e438db6caf",
+            name:"Danial Diaz"
+        }
+    ];
+    for (e of authors) { %>
+    <option value="<%= e._id %>"><%= e.name %></option>
+    <% } %>
+</select>
+<br>
+<label>Body:</label><br>
+<textarea name="body"></textarea><br>
+<label>Comment:</label><br>
+<textarea name="comment"></textarea><br>
+<label>Category:</label><br>
+<input type="text" name="category"><br>
+<input type="submit" value="Submit">
+</form>
+
+<h1>Blogs:</h1>
+<div class=blog>
+<% blogs.forEach(function(blog){ %>
+<h3><%= blog.title %></h3>
+    <div class="indented">
+        <i>by <% for (e of authors) {
+            if (e._id == blog.author) { %>
+                <%= e.name %>
+            <% }
+        } %>
+        </i>
+        <br><br>
+        <%= blog.body %>
+        <br><br>
+        <div class="indented">
+            <b>Comments</b>
+            <ul>
+                <li><%= blog.comment %> (<%= blog.created_at %>)</li>
+            </ul>
+        </div>
+        <div class="indented">
+            <b>Categories</b>
+            <ul>
+                <li><%= blog.category %></li>
+            </ul>
+        </div>
+         - <a href='/blogs/edit/<%= blog._id %>'>Edit</a>&nbsp;
+         <form method="post" action="/blogs/delete/<%= blog._id %>">
+            <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+            <input type="hidden" name="_method" value="DELETE" />
+        </form>
+    </div>
+<% }) %>
+</div>
+
+<% include partials/footer %>
